@@ -14,13 +14,13 @@ KNOWN_SKILLS = [
     "Data Structures", "Algorithms", "System Design", 
     "Linux/Unix Administration", "Bash Scripting", "PowerShell", "Network Security", 
     "Cloud Computing", "Google Cloud Platform", "Kubernetes", "Vue.js", "Yarn",
-    "User Testing", "Agile", "JIRA", "Confluence",
-    "Data Visualization", "Google Charts", "CICD",
+    "User Testing", "Agile", "JIRA", "Confluence", "Client/Server", "Peer-to-Peer",
+    "Data Visualization", "Google Charts", "CICD", "multi-treading",
     "Machine Learning", "TensorFlow", "PyTorch", "Data Analysis", "Pandas",
     "SQLAlchemy", "NumPy", "Matplotlib", "Data Cleaning", "Data Engineering",
     "Version Control Systems", "Software Debugging", "data migrations", "schema migrations", "maintaining databases",
     "Performance Optimization", "Distributed Systems", "Concurrency", "Parallel Computing", "Data Pipelines", "AI",
-    "Game Development", "Mobile Application Development", "Android Development", "iOS Development"
+    "Game Development", "Mobile Application Development", "Android Development", "iOS Development", "Jenkins"
 ]
 DEFAULT_SKILLS = {"ROS", "Git", "CMake", "Arduino", "Raspberry Pi", "Linux", "Valgrind", "GDB"}
 
@@ -35,6 +35,17 @@ def getSkills(user_input: str) -> set[str]:
     # Split this string into lines and create a set
     skills_set = set(user_input.strip().split('\n'))  # Split by new line
     return skills_set
+
+def add_to_gitignore(formatted_company_name: str):
+    # Define the path to your .gitignore file
+    gitignore_path = '.gitignore'
+    
+    # Construct the new line to add to the .gitignore
+    new_line = f"{formatted_company_name}/\n"
+    
+    # Open the .gitignore file and append the new line
+    with open(gitignore_path, 'a') as file:
+        file.write(new_line)
 
 
 def main():
@@ -82,6 +93,7 @@ def main():
 
     cov.replace_company_name_in_docx(resume, formatted_company_name)
     res.compile_latex_to_pdf(directory, resume)
+    add_to_gitignore(formatted_company_name)
 
 # If this script is the main program being executed, call the main function
 if __name__ == "__main__":
